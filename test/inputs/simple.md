@@ -40,6 +40,7 @@ story
 so
 ```
 
+<!-- meta={"mode":"strict","type":"request"} -->
 ```output
 shallow
 ```
