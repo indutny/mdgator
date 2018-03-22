@@ -11,6 +11,8 @@ interface IHeading {
   readonly name: string;
 }
 
+export { Group, Test };
+
 export class MDGator {
   private readonly md = new Markdown();
   private state: State = 'none';
