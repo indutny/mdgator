@@ -43,3 +43,5 @@ so
 ```output
 shallow
 ```
+
+Just some description with irrelevant `code`.
