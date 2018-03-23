@@ -1,5 +1,6 @@
 # mdgator
 [![Build Status](https://secure.travis-ci.org/indutny/mdgator.svg)](http://travis-ci.org/indutny/mdgator)
+[![NPM version](https://badge.fury.io/js/mdgator.svg)](https://badge.fury.io/js/mdgator)
 
 Turn a markdown document into a test suite.
 
