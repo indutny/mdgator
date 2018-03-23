@@ -1,7 +1,46 @@
 # mdgator
 [![Build Status](https://secure.travis-ci.org/indutny/mdgator.svg)](http://travis-ci.org/indutny/mdgator)
 
-WIP
+Turn a markdown document into a test suite.
+
+## Usage
+
+```ts
+import * as fs from 'fs';
+import { MDGator } from 'mdgator';
+
+const md = new MDGator();
+
+const parsed = md.parse(fs.readFileSync('./examples/suite.md').toString());
+console.log(parsed);
+```
+
+```js
+[ Group {
+    name: 'Your test suite',
+    line: 0,
+    children:
+     [ Group {
+         name: 'Sub-suite 1',
+         line: 3,
+         children: [],
+         tests:
+          [ Test {
+              name: 'Test title',
+              line: 8,
+              values:
+               Map {
+                 'js' => [ 'const a = { b: 1 };\n' ],
+                 'json' => [ '{\n  "b": 1\n}\n' ],
+                 'extra' => [ 'CHECK-WARNING: ...\n' ] },
+              meta: Map { 'js' => [ { some: 'json' } ] } } ] } ],
+    tests:
+     [ Test {
+         name: 'Test for top-level group',
+         line: 38,
+         values: Map { 'html' => [ '<b>input</b>\n', '<b>output</b>\n' ] },
+         meta: Map {} } ] } ]
+```
 
 #### LICENSE
 
