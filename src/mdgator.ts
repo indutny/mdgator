@@ -7,6 +7,7 @@ export type State = 'none' | 'heading';
 interface IHeading {
   readonly children: IHeading[];
   readonly content: Map<string, string[]>;
+  readonly depth: number;
   readonly line: number;
   readonly meta: Map<string, Metadata[]>;
   readonly name: string;
@@ -23,8 +24,10 @@ export class MDGator {
 
     const roots: IHeading[] = [];
 
-    const stack: IHeading[] = [];
     let metadata: Metadata | undefined;
+    let depth: number | undefined;
+
+    const stack: IHeading[] = [];
     for (const token of tokens) {
       const type = token.type;
 
@@ -33,8 +36,8 @@ export class MDGator {
         metadata = undefined;
 
         // Leave previous headings
-        const depth = parseInt(token.tag.slice(1), 10) - 1;
-        while (stack.length > depth) {
+        depth = parseInt(token.tag.slice(1), 10) - 1;
+        while (stack.length !== 0 && stack[stack.length - 1].depth >= depth) {
           stack.pop();
         }
       } else if (type === 'heading_close') {
@@ -48,10 +51,12 @@ export class MDGator {
         const heading = {
           children: [],
           content: new Map(),
+          depth: depth!,
           line: token.map[0],
           meta: new Map(),
           name: token.content,
         };
+        depth = undefined;
 
         if (stack.length === 0) {
           roots.push(heading);
